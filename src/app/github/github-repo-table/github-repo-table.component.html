@@ -1,0 +1,41 @@
+<!--<div class="container">
+  <div class="row">
+    <div class="col-4" style="border: 1px solid">Repository Name</div>
+    <div class="col-4" style="border: 1px solid">Author's Full Name</div>
+    <div class="col-4" style="border: 1px solid">Avator</div>
+    <div class="col-4" style="border: 1px solid">Create Date</div>
+    <div class="col-4" style="border: 1px solid">View Commits</div>
+  </div>
+  <div class="row" *ngFor="let repository of repositories">
+    <div class="col-4" style="border: 1px solid">{{repository.name}}</div>
+    <div class="col-4" style="border: 1px solid">{{repository.owner.login}}</div>
+    <div class="col-4" style="border: 1px solid"><img src="{{repository.owner.avatar_url}}" /></div>
+    <div class="col-4" style="border: 1px solid">{{repository.created_at | date: 'dd/MM/yyyy'}}</div>
+    <div class="col-4" style="border: 1px solid"><a [routerLink]="['/gitcommits', repository.full_name]">View Commits</a></div>
+  </div>
+</div>
+-->
+<mat-table #table [dataSource]="repositories" matSort>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Repository Name </mat-header-cell>
+    <mat-cell *matCellDef="let repository">{{repository.name}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="authorfullname">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Author's Full Name </mat-header-cell>
+    <mat-cell *matCellDef="let repository">{{repository.owner.login}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="avator">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Avator </mat-header-cell>
+    <mat-cell *matCellDef="let repository"><img src="{{repository.owner.avatar_url}}" /></mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="created_at">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Create Date </mat-header-cell>
+    <mat-cell *matCellDef="let repository">{{repository.created_at | date: 'dd/MM/yyyy'}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="view_commit">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> View Commits </mat-header-cell>
+    <mat-cell *matCellDef="let repository"><a [routerLink]="['/gitcommits', repository.full_name]">View Commits</a></mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
